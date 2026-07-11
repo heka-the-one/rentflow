@@ -31,6 +31,14 @@ app.use("/api/auth", authRoutes);
 app.use("/api/houses", houseRoutes);
 app.use("/api/rooms", roomRoutes);
 app.use("/api/tenants", tenantRoutes);
+// Handle uncaught errors to prevent server crash
+process.on("uncaughtException", (err) => {
+  console.error("Uncaught Exception:", err.message);
+});
+
+process.on("unhandledRejection", (err) => {
+  console.error("Unhandled Rejection:", err.message);
+});
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
